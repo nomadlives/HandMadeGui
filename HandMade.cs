@@ -3,11 +3,14 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace CSharpGUI {
+	//Creates the form
     public class WinFormExample : Form {
-
+	//Creates a button instance
         private Button button;
-		TextBox textbox1 = new TextBox();
-		Label label1 = new Label();
+	//Textbox instance
+	TextBox textbox1 = new TextBox();
+	//Label instance
+	Label label1 = new Label();
 		
         public WinFormExample() {
             DisplayGUI();
