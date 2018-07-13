@@ -8,35 +8,71 @@ namespace CSharpGUI {
 	//Creates a button instance
         private Button button;
 	//Textbox instance
-	TextBox textbox1 = new TextBox();
+	TextBox hours = new TextBox();
+	
+	//pay rate textbox.
+	TextBox rate = new TextBox();
 	//Label instance
-	Label label1 = new Label();
+	Label hourLabel = new Label();
+	
+	Label rateLabel = new Label();
 		
         public WinFormExample() {
             DisplayGUI();
         }
-
+		//C.Hall
         private void DisplayGUI() {
 			//https://stackoverflow.com/questions/27093017/how-to-add-ui-without-ide 
 			//Made from this example
             this.Name = "HandMade GUI";
             this.Text = "HandMade Gui";
-            this.Size = new Size(200, 300);
+            this.Size = new Size(300, 200);
             this.StartPosition = FormStartPosition.CenterScreen;
-			label1.Text="Enter Text";
-			label1.Location = new Point(1, 80);
-			label1.Size = new Size(label1.PreferredWidth, label1.PreferredHeight);
-			this.Controls.Add(label1);
-			textbox1.Height = 50;
-			textbox1.Width = 150;
-			textbox1.Location = new Point(5, 100);
-			this.Controls.Add(textbox1);
+			
+			//Label for Hours textbox.	
+			hourLabel.Text="Enter Hours";
+			
+			//Location for Hours TextBox.
+			hourLabel.Location = new Point(1, 80);
+			//dimensions for label.
+			hourLabel.Size = new Size(hourLabel.PreferredWidth, hourLabel.PreferredHeight);
+			
+			//Adds the label to the gui.
+			this.Controls.Add(hourLabel);
+			
+			//Dimensions for hours textbox.
+			hours.Height = 50;
+			hours.Width = 150;
+			hours.Location = new Point(5, 100);
+			
+			//adding textbox to gui.
+			this.Controls.Add(hours);
+			
+			
+			//label for rate textbox.
+			rateLabel.Text = "Enter Pay Rate";
+			rateLabel.Location = new Point(1,5);
+			rateLabel.Size = new Size(rateLabel.PreferredWidth, rateLabel.PreferredHeight);
+			
+			//adding label to gui.
+			this.Controls.Add(rateLabel);
+			
+			
+			//rate textbox dimensions.
+			rate.Height = 50;
+			rate.Width = 150;
+			rate.Location = new Point(5, 25);
+			
+			//adds rate box to gui.
+			this.Controls.Add(rate);
+			
+			
             button = new Button();
             button.Name = "button";
-            button.Text = "Click Me!";
+            button.Text = "Submit";
             button.Size = new Size(90, 30);
             button.Location = new Point(
-                (this.Width - button.Width) / 3,
+                (180) ,
                 (this.Height - button.Height) / 2);
             button.Click += new System.EventHandler(this.MyButtonClick);
 
@@ -44,8 +80,34 @@ namespace CSharpGUI {
         }
 
         private void MyButtonClick(object source, EventArgs e) {
-            MessageBox.Show(textbox1.Text);
-			textbox1.Text = "";
+            //MessageBox.Show(rate.Text);
+			//hours.Text = "";
+			Double result;
+			bool checkRate = Double.TryParse(rate.Text, out  result);
+			
+			if (checkRate == false)
+			{
+				MessageBox.Show("Incorrect Amount", "PayCalc");
+			}
+			else
+			{
+				int hourResult;
+				bool checkHour = Int32.TryParse(hours.Text, out hourResult);
+				
+				if(checkHour == false)
+				{
+					MessageBox.Show("Incorrect AMount", "PayCalc");
+					
+				}
+				else{
+					
+					double grossPay = Math.Round(result * Convert.ToDouble(hourResult), 3);
+					MessageBox.Show("Your gross pay is. $" + Convert.ToString(grossPay), "PayCalc");
+				}
+				
+				
+			}
+				
         }
 
         public static void Main(String[] args) {
