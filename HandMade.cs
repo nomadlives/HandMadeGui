@@ -20,12 +20,12 @@ namespace CSharpGUI {
         public WinFormExample() {
             DisplayGUI();
         }
-		//C.Hall
+
         private void DisplayGUI() {
 			//https://stackoverflow.com/questions/27093017/how-to-add-ui-without-ide 
 			//Made from this example
             this.Name = "HandMade GUI";
-            this.Text = "HandMade Gui";
+            this.Text = "PayCalc";
             this.Size = new Size(300, 200);
             this.StartPosition = FormStartPosition.CenterScreen;
 			
@@ -44,7 +44,7 @@ namespace CSharpGUI {
 			hours.Height = 50;
 			hours.Width = 150;
 			hours.Location = new Point(5, 100);
-			
+			hours.TabIndex = 2;
 			//adding textbox to gui.
 			this.Controls.Add(hours);
 			
@@ -62,7 +62,7 @@ namespace CSharpGUI {
 			rate.Height = 50;
 			rate.Width = 150;
 			rate.Location = new Point(5, 25);
-			
+			rate.TabIndex = 1;
 			//adds rate box to gui.
 			this.Controls.Add(rate);
 			
@@ -75,7 +75,7 @@ namespace CSharpGUI {
                 (180) ,
                 (this.Height - button.Height) / 2);
             button.Click += new System.EventHandler(this.MyButtonClick);
-
+			button.TabIndex = 3;
             this.Controls.Add(button);
         }
 
@@ -88,6 +88,8 @@ namespace CSharpGUI {
 			if (checkRate == false)
 			{
 				MessageBox.Show("Incorrect Amount", "PayCalc");
+				rate.Text = "";
+				rate.Focus();
 			}
 			else
 			{
@@ -97,12 +99,17 @@ namespace CSharpGUI {
 				if(checkHour == false)
 				{
 					MessageBox.Show("Incorrect AMount", "PayCalc");
-					
+					hours.Text = "";
+					hours.Focus();
 				}
 				else{
 					
 					double grossPay = Math.Round(result * Convert.ToDouble(hourResult), 3);
 					MessageBox.Show("Your gross pay is. $" + Convert.ToString(grossPay), "PayCalc");
+					
+					rate.Focus();
+					rate.Text = "";
+					hours.Text = "";
 				}
 				
 				
